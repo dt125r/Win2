@@ -1,0 +1,168 @@
+{
+    "name": "Advanced Window Plugin",
+    "plugin_id": "advanced_window",
+    "version": "1.0.0",
+    "description": "背景画像ドロップ機能とアニメーション効果付きの高機能ウインドウプラグイン",
+    "author": "Claude Assistant",
+    "url": "",
+    "target": "tyrano",
+    "global": false,
+    
+    "components": [
+        {
+            "name": "advanced_window",
+            "title": "高機能ウインドウ",
+            "description": "ドラッグ&ドロップで背景画像を設定できる高機能ウインドウを表示します",
+            "icon": "💻",
+            "color": "#4CAF50",
+            "category": "システム拡張",
+            
+            "params": [
+                {
+                    "name": "name",
+                    "title": "ウインドウ名",
+                    "type": "text",
+                    "default": "",
+                    "description": "ウインドウの識別名（省略可）"
+                },
+                {
+                    "name": "width",
+                    "title": "幅",
+                    "type": "number",
+                    "default": "800",
+                    "min": "200",
+                    "max": "1920",
+                    "description": "ウインドウの幅（px）"
+                },
+                {
+                    "name": "height", 
+                    "title": "高さ",
+                    "type": "number",
+                    "default": "600",
+                    "min": "150",
+                    "max": "1080",
+                    "description": "ウインドウの高さ（px）"
+                },
+                {
+                    "name": "x",
+                    "title": "X座標",
+                    "type": "number",
+                    "default": "100",
+                    "description": "ウインドウのX座標"
+                },
+                {
+                    "name": "y",
+                    "title": "Y座標", 
+                    "type": "number",
+                    "default": "100",
+                    "description": "ウインドウのY座標"
+                },
+                {
+                    "name": "bg_color",
+                    "title": "背景色",
+                    "type": "color",
+                    "default": "#FFFFFF",
+                    "description": "ウインドウの背景色"
+                },
+                {
+                    "name": "bg_opacity",
+                    "title": "背景透明度",
+                    "type": "range",
+                    "default": "0.8",
+                    "min": "0",
+                    "max": "1",
+                    "step": "0.1",
+                    "description": "背景の透明度（0-1）"
+                },
+                {
+                    "name": "border_color",
+                    "title": "枠線色",
+                    "type": "color", 
+                    "default": "#000000",
+                    "description": "ウインドウの枠線色"
+                },
+                {
+                    "name": "border_width",
+                    "title": "枠線幅",
+                    "type": "number",
+                    "default": "2",
+                    "min": "0",
+                    "max": "10",
+                    "description": "枠線の太さ（px）"
+                },
+                {
+                    "name": "animation",
+                    "title": "アニメーション",
+                    "type": "select",
+                    "default": "none",
+                    "options": [
+                        {"value": "none", "text": "なし"},
+                        {"value": "fadeIn", "text": "フェードイン"},
+                        {"value": "slideDown", "text": "上からスライド"},
+                        {"value": "slideUp", "text": "下からスライド"},
+                        {"value": "slideLeft", "text": "右からスライド"},
+                        {"value": "slideRight", "text": "左からスライド"},
+                        {"value": "zoomIn", "text": "ズームイン"},
+                        {"value": "bounce", "text": "バウンス"}
+                    ],
+                    "description": "ウインドウ表示時のアニメーション"
+                },
+                {
+                    "name": "animation_time",
+                    "title": "アニメーション時間",
+                    "type": "number",
+                    "default": "1000",
+                    "min": "100",
+                    "max": "5000",
+                    "description": "アニメーション時間（ミリ秒）"
+                },
+                {
+                    "name": "draggable",
+                    "title": "ドラッグ可能",
+                    "type": "checkbox",
+                    "default": true,
+                    "description": "ウインドウをドラッグで移動可能にする"
+                },
+                {
+                    "name": "resizable",
+                    "title": "リサイズ可能",
+                    "type": "checkbox", 
+                    "default": true,
+                    "description": "ウインドウのサイズ変更を可能にする"
+                },
+                {
+                    "name": "bg_image",
+                    "title": "初期背景画像",
+                    "type": "image",
+                    "default": "",
+                    "description": "初期表示する背景画像（省略可）"
+                },
+                {
+                    "name": "close_button",
+                    "title": "閉じるボタン",
+                    "type": "checkbox",
+                    "default": true,
+                    "description": "閉じるボタンを表示する"
+                }
+            ]
+        },
+        {
+            "name": "close_advanced_window",
+            "title": "高機能ウインドウを閉じる",
+            "description": "表示中の高機能ウインドウを閉じます",
+            "icon": "❌",
+            "color": "#f44336",
+            "category": "システム拡張",
+            
+            "params": [
+                {
+                    "name": "name",
+                    "title": "ウインドウ名",
+                    "type": "text",
+                    "default": "",
+                    "description": "閉じるウインドウ名（省略時は全て閉じる）"
+                }
+            ]
+        }
+    ]
+}
