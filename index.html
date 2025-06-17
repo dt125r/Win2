@@ -1,168 +1,182 @@
-{
-    "name": "Advanced Window Plugin",
-    "plugin_id": "advanced_window",
-    "version": "1.0.0",
-    "description": "背景画像ドロップ機能とアニメーション効果付きの高機能ウインドウプラグイン",
-    "author": "Claude Assistant",
-    "url": "",
-    "target": "tyrano",
-    "global": false,
-    
-    "components": [
-        {
-            "name": "advanced_window",
-            "title": "高機能ウインドウ",
-            "description": "ドラッグ&ドロップで背景画像を設定できる高機能ウインドウを表示します",
-            "icon": "💻",
-            "color": "#4CAF50",
-            "category": "システム拡張",
-            
-            "params": [
-                {
-                    "name": "name",
-                    "title": "ウインドウ名",
-                    "type": "text",
-                    "default": "",
-                    "description": "ウインドウの識別名（省略可）"
-                },
-                {
-                    "name": "width",
-                    "title": "幅",
-                    "type": "number",
-                    "default": "800",
-                    "min": "200",
-                    "max": "1920",
-                    "description": "ウインドウの幅（px）"
-                },
-                {
-                    "name": "height", 
-                    "title": "高さ",
-                    "type": "number",
-                    "default": "600",
-                    "min": "150",
-                    "max": "1080",
-                    "description": "ウインドウの高さ（px）"
-                },
-                {
-                    "name": "x",
-                    "title": "X座標",
-                    "type": "number",
-                    "default": "100",
-                    "description": "ウインドウのX座標"
-                },
-                {
-                    "name": "y",
-                    "title": "Y座標", 
-                    "type": "number",
-                    "default": "100",
-                    "description": "ウインドウのY座標"
-                },
-                {
-                    "name": "bg_color",
-                    "title": "背景色",
-                    "type": "color",
-                    "default": "#FFFFFF",
-                    "description": "ウインドウの背景色"
-                },
-                {
-                    "name": "bg_opacity",
-                    "title": "背景透明度",
-                    "type": "range",
-                    "default": "0.8",
-                    "min": "0",
-                    "max": "1",
-                    "step": "0.1",
-                    "description": "背景の透明度（0-1）"
-                },
-                {
-                    "name": "border_color",
-                    "title": "枠線色",
-                    "type": "color", 
-                    "default": "#000000",
-                    "description": "ウインドウの枠線色"
-                },
-                {
-                    "name": "border_width",
-                    "title": "枠線幅",
-                    "type": "number",
-                    "default": "2",
-                    "min": "0",
-                    "max": "10",
-                    "description": "枠線の太さ（px）"
-                },
-                {
-                    "name": "animation",
-                    "title": "アニメーション",
-                    "type": "select",
-                    "default": "none",
-                    "options": [
-                        {"value": "none", "text": "なし"},
-                        {"value": "fadeIn", "text": "フェードイン"},
-                        {"value": "slideDown", "text": "上からスライド"},
-                        {"value": "slideUp", "text": "下からスライド"},
-                        {"value": "slideLeft", "text": "右からスライド"},
-                        {"value": "slideRight", "text": "左からスライド"},
-                        {"value": "zoomIn", "text": "ズームイン"},
-                        {"value": "bounce", "text": "バウンス"}
-                    ],
-                    "description": "ウインドウ表示時のアニメーション"
-                },
-                {
-                    "name": "animation_time",
-                    "title": "アニメーション時間",
-                    "type": "number",
-                    "default": "1000",
-                    "min": "100",
-                    "max": "5000",
-                    "description": "アニメーション時間（ミリ秒）"
-                },
-                {
-                    "name": "draggable",
-                    "title": "ドラッグ可能",
-                    "type": "checkbox",
-                    "default": true,
-                    "description": "ウインドウをドラッグで移動可能にする"
-                },
-                {
-                    "name": "resizable",
-                    "title": "リサイズ可能",
-                    "type": "checkbox", 
-                    "default": true,
-                    "description": "ウインドウのサイズ変更を可能にする"
-                },
-                {
-                    "name": "bg_image",
-                    "title": "初期背景画像",
-                    "type": "image",
-                    "default": "",
-                    "description": "初期表示する背景画像（省略可）"
-                },
-                {
-                    "name": "close_button",
-                    "title": "閉じるボタン",
-                    "type": "checkbox",
-                    "default": true,
-                    "description": "閉じるボタンを表示する"
-                }
-            ]
-        },
-        {
-            "name": "close_advanced_window",
-            "title": "高機能ウインドウを閉じる",
-            "description": "表示中の高機能ウインドウを閉じます",
-            "icon": "❌",
-            "color": "#f44336",
-            "category": "システム拡張",
-            
-            "params": [
-                {
-                    "name": "name",
-                    "title": "ウインドウ名",
-                    "type": "text",
-                    "default": "",
-                    "description": "閉じるウインドウ名（省略時は全て閉じる）"
-                }
-            ]
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ティラノ用ウィンドウスクリプト生成ツール</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    input, textarea, select, button {
+      margin: 5px 0;
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    #dropZone {
+      border: 2px dashed #888;
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    #previewImage {
+      max-width: 100%;
+      display: none;
+      margin-top: 10px;
+    }
+    #previewBox {
+      width: 400px;
+      height: 200px;
+      border: 2px solid #000;
+      margin-top: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .scroll-x {
+      animation: scrollX 10s linear infinite;
+    }
+    .scroll-y {
+      animation: scrollY 10s linear infinite;
+    }
+    .zoom {
+      animation: zoomInOut 10s ease-in-out infinite;
+    }
+    @keyframes scrollX {
+      0% { background-position: 0 0; }
+      100% { background-position: -200px 0; }
+    }
+    @keyframes scrollY {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 -200px; }
+    }
+    @keyframes zoomInOut {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <h1>ティラノ用ウィンドウスクリプト生成ツール</h1>
+
+  <label>背景色: <input type="color" id="bgColor" value="#000000"></label>
+  <label>横幅(px): <input type="number" id="width" value="400"></label>
+  <label>高さ(px): <input type="number" id="height" value="200"></label>
+
+  <label>テキスト内容:  
+    <textarea id="text">こんにちは、${f.名前}さん！</textarea>
+  </label>
+
+  <label>背景アニメーション:
+    <select id="animationType">
+      <option value="none">なし</option>
+      <option value="scroll-x">横スクロール</option>
+      <option value="scroll-y">縦スクロール</option>
+      <option value="zoom">ズーム</option>
+    </select>
+  </label>
+
+  <div id="dropZone">ここに背景画像をドロップ</div>
+  <img id="previewImage" />
+
+  <button onclick="generateScript()">スクリプト生成</button>
+  <button onclick="resetForm()">初期化</button>
+
+  <h2>スクリプト出力</h2>
+  <textarea id="outputScript" rows="10"></textarea>
+
+  <h2>プレビュー</h2>
+  <div id="previewBox"></div>
+
+  <script>
+    let imageName = "";
+    let imageData = "";
+    const previewBox = document.getElementById("previewBox");
+
+    document.getElementById("dropZone").addEventListener("dragover", function(e) {
+      e.preventDefault();
+      this.style.background = "#e0e0e0";
+    });
+
+    document.getElementById("dropZone").addEventListener("drop", function(e) {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      imageName = file.name;
+
+      const reader = new FileReader();
+      reader.onload = function() {
+        imageData = reader.result;
+        const img = document.getElementById("previewImage");
+        img.src = imageData;
+        img.style.display = "block";
+        updatePreview();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function generateScript() {
+      const bgColor = document.getElementById("bgColor").value;
+      const width = document.getElementById("width").value;
+      const height = document.getElementById("height").value;
+      const text = document.getElementById("text").value;
+      const animation = document.getElementById("animationType").value;
+
+      let script = `[layopt layer=message page=fore left=100 top=100 width=${width} height=${height} color=${bgColor} opacity=200]\n`;
+
+      if (imageName) {
+        let animStr = "";
+        if (animation === "scroll-x") {
+          animStr = `anim=loop move_x=2 time=50`;
+        } else if (animation === "scroll-y") {
+          animStr = `anim=loop move_y=2 time=50`;
+        } else if (animation === "zoom") {
+          animStr = `anim=loop zoom=110 time=100`;
         }
-    ]
-}
+        script += `[image storage="${imageName}" layer=base page=fore left=0 top=0 width=${width} height=${height} ${animStr}]\n`;
+      }
+
+      script += `[text layer=message page=fore]\n${text}\n[endtext]`;
+      document.getElementById("outputScript").value = script;
+
+      updatePreview();
+    }
+
+    function resetForm() {
+      document.getElementById("bgColor").value = "#000000";
+      document.getElementById("width").value = "400";
+      document.getElementById("height").value = "200";
+      document.getElementById("text").value = "こんにちは、${f.名前}さん！";
+      document.getElementById("animationType").value = "none";
+      document.getElementById("outputScript").value = "";
+      document.getElementById("previewImage").style.display = "none";
+      previewBox.style.background = "";
+      previewBox.textContent = "";
+    }
+
+    function updatePreview() {
+      const width = document.getElementById("width").value;
+      const height = document.getElementById("height").value;
+      const bgColor = document.getElementById("bgColor").value;
+      const text = document.getElementById("text").value;
+      const animation = document.getElementById("animationType").value;
+
+      previewBox.style.width = width + "px";
+      previewBox.style.height = height + "px";
+      previewBox.style.color = "#fff";
+      previewBox.style.backgroundColor = bgColor;
+      previewBox.style.backgroundImage = imageData ? `url(${imageData})` : "none";
+      previewBox.style.backgroundSize = "cover";
+      previewBox.style.backgroundRepeat = "repeat";
+
+      previewBox.className = "";
+      if (animation === "scroll-x") previewBox.classList.add("scroll-x");
+      if (animation === "scroll-y") previewBox.classList.add("scroll-y");
+      if (animation === "zoom") previewBox.classList.add("zoom");
+
+      previewBox.textContent = text;
+    }
+  </script>
+</body>
+</html>
